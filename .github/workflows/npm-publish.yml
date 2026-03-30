@@ -1,0 +1,25 @@
+name: Publish NPM Package
+
+on:
+  push:
+    tags:
+      - 'v*'  # 当推送 v 开头的标签时触发
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'  # 使用 Node.js 22 版本
+          registry-url: 'https://registry.npmjs.org/'
+      
+      - run: npm ci
+      
+      - run: npm test  # 可选：运行测试
+      
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
