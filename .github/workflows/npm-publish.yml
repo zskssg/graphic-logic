@@ -52,7 +52,8 @@ jobs:
         run: npm test
       
       - name: Publish to npm
-        run: npm publish
+        run: npm publish --access public
+        # --access public 表示发布为公共包
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
