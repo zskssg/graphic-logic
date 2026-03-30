@@ -19,7 +19,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write # 允许写入内容
+      packages: write # 允许发布包
       id-token: write # 生成来源证明
     # 添加环境变量解决 Node.js 20 弃用警告
     env:
