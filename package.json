@@ -53,5 +53,8 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "provenance": true
+  },
+  "config": {
+    "registry": "https://registry.npmmirror.com/"
   }
 }

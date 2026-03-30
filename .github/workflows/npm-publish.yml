@@ -15,11 +15,34 @@ jobs:
         with:
           node-version: '22'  # 使用 Node.js 22 版本
           registry-url: 'https://registry.npmjs.org/'
-      
-      - run: npm ci
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Debug info
+        run: |
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          echo "Current directory: $(pwd)"
+          ls -la
+
+      - name: Clear npm cache
+        run: |
+        npm cache clean --force
+        rm -rf node_modules
+        rm -f package-lock.json
+
+      - name: Install dependencies
+        run: |
+          # 尝试 npm ci，失败时回退到 npm install
+          npm ci || (echo "npm ci failed, trying npm install..." && npm install)
       
       - run: npm test  # 可选：运行测试
       
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
