@@ -23,8 +23,7 @@ jobs:
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org/'
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
+         
 
       - name: Debug info
         run: |
