@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graphic Logic 图形演示</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Graphic Logic 图形演示</h1>
+      <div class="canvas-container">
+        <canvas id="animationCanvas" width="400" height="400"></canvas>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label for="shapeSelect">图形类型:</label
+          ><select id="shapeSelect"></select>
+        </div>
+        <div class="control-group">
+          <label for="transformSelect">变换效果:</label
+          ><select id="transformSelect"></select>
+        </div>
+        <div class="control-group">
+          <label for="frameRange">当前帧:</label
+          ><input
+            type="range"
+            id="frameRange"
+            min="0"
+            max="63"
+            value="0"
+          /><input type="number" id="frameNumber" min="0" max="63" value="0" />
+        </div>
+        <div class="control-group">
+          <label for="fpsRange">帧率 (FPS):</label
+          ><input
+            type="range"
+            id="fpsRange"
+            min="1"
+            max="60"
+            value="30"
+          /><input type="number" id="fpsNumber" min="1" max="60" value="30" />
+        </div>
+        <div class="control-group">
+          <label for="pointSize">点大小:</label
+          ><input
+            type="range"
+            id="pointSize"
+            min="1"
+            max="10"
+            value="3"
+          /><input
+            type="number"
+            id="pointSizeNumber"
+            min="1"
+            max="10"
+            value="3"
+          />
+        </div>
+        <div class="button-group">
+          <button id="prevBtn">上一帧 (↑)</button
+          ><button id="playBtn">播放/暂停 (空格)</button
+          ><button id="nextBtn">下一帧 (↓)</button>
+        </div>
+        <div class="info">
+          <div id="frameInfo">帧: 0 / 64</div>
+          <div id="shapeInfo">图形: 圆形</div>
+          <div id="transformInfo">变换: 标准变换</div>
+        </div>
+        <div class="keyboard-info">
+          <strong>键盘控制:</strong><br />↑ 上一帧 | ↓ 下一帧 | 空格 播放/暂停
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

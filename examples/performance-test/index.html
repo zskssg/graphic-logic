@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graphic Logic 性能测试</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Graphic Logic 性能测试</h1>
+      <div class="test-container">
+        <div class="canvas-container">
+          <canvas id="testCanvas" width="800" height="600"></canvas>
+        </div>
+        <div class="controls">
+          <div class="control-grid">
+            <div class="control-group">
+              <label for="shapeCount">图形数量:</label
+              ><input
+                type="range"
+                id="shapeCount"
+                min="1"
+                max="10000"
+                value="100"
+              /><input
+                type="number"
+                id="shapeCountNumber"
+                min="1"
+                max="1000"
+                value="100"
+              />
+            </div>
+            <div class="control-group">
+              <label for="shapeSize">图形大小:</label
+              ><input
+                type="range"
+                id="shapeSize"
+                min="5"
+                max="50"
+                value="20"
+              /><input
+                type="number"
+                id="shapeSizeNumber"
+                min="5"
+                max="50"
+                value="20"
+              />
+            </div>
+            <div class="control-group">
+              <label for="shapeType">图形类型:</label
+              ><select id="shapeType">
+                <option value="circle">圆形</option>
+                <option value="rectangle">矩形</option>
+                <option value="star">星形</option>
+                <option value="semicircle">半圆</option>
+                <option value="wave">波纹</option>
+                <option value="triangle">三角形</option>
+                <option value="parallelogram">平行四边形</option>
+                <option value="ellipse">椭圆形</option>
+                <option value="truncatedCone">圆台</option>
+                <option value="sector">扇形</option>
+                <option value="ring">圆环</option>
+                <option value="polygon">多边形</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="transformType">变换类型:</label
+              ><select id="transformType">
+                <option value="rotate">旋转</option>
+                <option value="scale">缩放</option>
+                <option value="wave">波浪</option>
+                <option value="linear">线性变换</option>
+                <option value="waveSpread">水波扩散</option>
+                <option value="combined">组合变换</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="animationSpeed">动画速度:</label
+              ><input
+                type="range"
+                id="animationSpeed"
+                min="0.1"
+                max="2"
+                step="0.1"
+                value="1"
+              /><input
+                type="number"
+                id="animationSpeedNumber"
+                min="0.1"
+                max="2"
+                step="0.1"
+                value="1"
+              />
+            </div>
+            <div class="control-group">
+              <label for="renderMode">渲染模式:</label
+              ><select id="renderMode">
+                <option value="points">点渲染</option>
+                <option value="lines">线渲染</option>
+                <option value="fill">填充渲染</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-group">
+            <button id="startBtn">开始测试</button
+            ><button id="stopBtn">停止测试</button
+            ><button id="resetBtn">重置</button>
+          </div>
+          <div class="performance-info">
+            <h3>性能指标</h3>
+            <div class="metrics">
+              <div class="metric">
+                <span class="label">当前 FPS:</span
+                ><span id="currentFps" class="value">0</span>
+              </div>
+              <div class="metric">
+                <span class="label">平均 FPS:</span
+                ><span id="avgFps" class="value">0</span>
+              </div>
+              <div class="metric">
+                <span class="label">最低 FPS:</span
+                ><span id="minFps" class="value">0</span>
+              </div>
+              <div class="metric">
+                <span class="label">最高 FPS:</span
+                ><span id="maxFps" class="value">0</span>
+              </div>
+              <div class="metric">
+                <span class="label">渲染时间:</span
+                ><span id="renderTime" class="value">0ms</span>
+              </div>
+              <div class="metric">
+                <span class="label">图形数量:</span
+                ><span id="currentShapeCount" class="value">0</span>
+              </div>
+            </div>
+          </div>
+          <div class="log-container">
+            <h3>测试日志</h3>
+            <div id="testLog" class="log"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
