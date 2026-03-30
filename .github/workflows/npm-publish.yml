@@ -7,6 +7,12 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+-alpha.*'  # 匹配 alpha 版本
       - 'v[0-9]+.[0-9]+.[0-9]+-beta.*'   # 匹配 beta 版本
       - 'v[0-9]+.[0-9]+.[0-9]+-rc.*'     # 匹配 rc 版本
+  workflow_dispatch:  # 添加这一行，启用手动触发
+    inputs:          # 可选：添加输入参数
+      version_type:
+        description: '版本类型 (major/minor/patch)'
+        required: false
+        default: 'patch'
     
 
 jobs:
