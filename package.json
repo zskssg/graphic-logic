@@ -49,5 +49,9 @@
   "repository": {
     "type": "git",
     "url": ""
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
   }
 }
