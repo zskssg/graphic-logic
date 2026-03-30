@@ -45,9 +45,7 @@ jobs:
         run: |
           npm cache clean --force
           rm -rf node_modules
-          # 注意：这里删除了 package-lock.json，会导致 npm ci 失败
-          # 考虑是否真的需要删除，通常不建议删除 package-lock.json
-          # rm -f package-lock.json
+          
 
       - name: Install dependencies
         run: |
@@ -64,6 +62,11 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
       - name: Create GitHub Release
+        if: success() # 只在发布成功时创建发布
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
           generate_release_notes: true
+          prerelease: false
+          draft: false
