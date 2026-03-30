@@ -11,6 +11,7 @@ export * from './geometry/Circle';
 
 // 逻辑模块
 export * from './logic/LogicGate';
+export * from './logic/TimeScheduler';
 
 // 动画模块
 export * from './animation';

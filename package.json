@@ -1,6 +1,6 @@
 {
   "name": "graphic-logic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A TypeScript library for graphical logic exploration and learning",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -48,7 +48,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/zskssg/graphic-logic.git"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
