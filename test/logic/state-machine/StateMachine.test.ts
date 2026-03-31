@@ -201,8 +201,8 @@ describe('State Machine', () => {
       const transitions = stateMachine.getTransitions();
       
       expect(transitions).toHaveLength(1);
-      expect(transitions[0].from).toBe('StateA');
-      expect(transitions[0].to).toBe('StateB');
+      expect(transitions[0]!.from).toBe('StateA');
+      expect(transitions[0]!.to).toBe('StateB');
     });
   });
 

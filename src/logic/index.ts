@@ -12,6 +12,9 @@ export * from './state-machine';
 // 流程编排模块
 export * from './process';
 
+// 行为树模块
+export * from './behavior-tree';
+
 // 逻辑门模块
 export * from './LogicGate';
 

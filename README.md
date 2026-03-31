@@ -23,6 +23,8 @@ pnpm add graphic-logic
 
 详细使用文档请查看 [docs](./docs/) 目录：
 
+- [流程编排](./docs/process-orchestration.md) - 流程编排和控制
+- [行为树](./docs/behavior-tree.md) - AI决策系统
 - [时间调度器](./docs/time-scheduler.md) - 按时按顺序执行步骤
 - [状态机](./docs/state-machine.md) - 状态管理和状态转换
 - [几何模块](./docs/geometry.md) - 基础几何操作

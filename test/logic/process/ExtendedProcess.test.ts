@@ -28,7 +28,7 @@ describe('Extended Process Features', () => {
     it('should execute TimerNode with delay', async () => {
       // 创建流程定义
       const process = new ProcessDefinition('timer-process', 'Timer Process', 'start');
-      
+
       // 添加节点
       process.addNode(new StartNode('start', 'Start', 'timer'));
       process.addNode(new TimerNode('timer', 'Timer', 100, 'end'));
@@ -46,7 +46,7 @@ describe('Extended Process Features', () => {
     it('should execute DelayNode with specified duration', async () => {
       // 创建流程定义
       const process = new ProcessDefinition('delay-process', 'Delay Process', 'start');
-      
+
       // 添加节点
       process.addNode(new StartNode('start', 'Start', 'delay'));
       process.addNode(new DelayNode('delay', 'Delay', 50, 'end'));
@@ -64,7 +64,7 @@ describe('Extended Process Features', () => {
     it('should execute CronNode', async () => {
       // 创建流程定义
       const process = new ProcessDefinition('cron-process', 'Cron Process', 'start');
-      
+
       // 添加节点
       process.addNode(new StartNode('start', 'Start', 'cron'));
       process.addNode(new CronNode('cron', 'Cron', '0 * * * *', 'end'));
@@ -84,30 +84,30 @@ describe('Extended Process Features', () => {
     it('should execute LoopNode with condition', async () => {
       // 创建流程定义
       const process = new ProcessDefinition('loop-process', 'Loop Process', 'start');
-      
+
       // 添加节点
       process.addNode(new StartNode('start', 'Start', 'loop'));
-      
+
       // 创建循环节点
       process.addNode(new LoopNode(
         'loop',
         'Loop',
-        (context) => (context.counter || 0)< 3,
+        (context) => (context.counter || 0) < 3,
         'body',
         'end'
       ));
-      
+
       // 循环体
       process.addNode(new TaskNode(
         'body',
         'Loop Body',
-        (context) =>{
+        (context) => {
           context.counter = (context.counter || 0) + 1;
           return { counter: context.counter };
         },
         'continue'
       ));
-      
+
       // 继续节点
       process.addNode(new ContinueNode('continue', 'Continue', 'loop'));
       process.addNode(new EndNode('end', 'End'));
@@ -124,10 +124,10 @@ describe('Extended Process Features', () => {
     it('should execute ForEachNode to iterate collection', async () => {
       // 创建流程定义
       const process = new ProcessDefinition('foreach-process', 'ForEach Process', 'start');
-      
+
       // 添加节点
       process.addNode(new StartNode('start', 'Start', 'foreach'));
-      
+
       // 创建ForEach节点
       process.addNode(new ForEachNode(
         'foreach',
@@ -137,7 +137,7 @@ describe('Extended Process Features', () => {
         'body',
         'end'
       ));
-      
+
       // 循环体
       process.addNode(new TaskNode(
         'body',
@@ -151,7 +151,7 @@ describe('Extended Process Features', () => {
         },
         'continue'
       ));
-      
+
       // ForEach继续节点
       process.addNode(new ForEachContinueNode('continue', 'ForEach Continue', 'foreach'));
       process.addNode(new EndNode('end', 'End'));
@@ -170,11 +170,11 @@ describe('Extended Process Features', () => {
     it('should handle empty collection in ForEachNode', async () => {
       // 创建流程定义
       const process = new ProcessDefinition('empty-foreach-process', 'Empty ForEach Process', 'start');
-      
+
       // 添加节点
       process.addNode(new StartNode('start', 'Start', 'foreach'));
       process.addNode(new ForEachNode('foreach', 'ForEach', 'items', 'currentItem', 'body', 'end'));
-      process.addNode(new TaskNode('body', 'Body', () => {}, 'continue'));
+      process.addNode(new TaskNode('body', 'Body', () => { }, 'continue'));
       process.addNode(new ForEachContinueNode('continue', 'Continue', 'foreach'));
       process.addNode(new EndNode('end', 'End'));
 
@@ -204,12 +204,12 @@ describe('Extended Process Features', () => {
         'Custom Template',
         (parameters) => {
           const { name = 'Default Process', delay = 1000 } = parameters;
-          
+
           const process = new ProcessDefinition(`process-${Date.now()}`, name, 'start');
           process.addNode(new StartNode('start', 'Start', 'task'));
           process.addNode(new TaskNode('task', 'Task', () => ({ delay }), 'end'));
           process.addNode(new EndNode('end', 'End'));
-          
+
           return process;
         },
         'A custom process template'
@@ -228,19 +228,19 @@ describe('Extended Process Features', () => {
       expect(process.id).toMatch(/^process-/);
     });
 
-    it('should use default parameters when none provided', () => {
+    it('should use default parameters when none provided', async () => {
       // 创建带默认参数的模板
       const template = new ProcessTemplate(
         'default-template',
         'Default Template',
         (parameters) => {
           const { count = 5, message = 'Hello' } = parameters;
-          
+
           const process = new ProcessDefinition('default-process', 'Default Process', 'start');
           process.addNode(new StartNode('start', 'Start', 'task'));
           process.addNode(new TaskNode('task', 'Task', () => ({ count, message }), 'end'));
           process.addNode(new EndNode('end', 'End'));
-          
+
           return process;
         },
         'Template with default parameters'
@@ -257,9 +257,9 @@ describe('Extended Process Features', () => {
 
       // 执行流程
       processEngine.registerProcess(process);
-      const result = processEngine.executeProcess(process.id);
+      const result = await processEngine.executeProcess(process.id);
 
-      expect(result).resolves.toBeDefined();
+      expect(result).toBeDefined();
     });
 
     it('should use predefined templates', () => {
@@ -323,33 +323,33 @@ describe('Extended Process Features', () => {
     it('should combine timer and loop', async () => {
       // 创建流程定义
       const process = new ProcessDefinition('timer-loop-process', 'Timer Loop Process', 'start');
-      
+
       // 添加节点
       process.addNode(new StartNode('start', 'Start', 'loop'));
-      
+
       // 创建循环节点
       process.addNode(new LoopNode(
         'loop',
         'Loop',
-        (context: any) => (context.counter || 0)< 2,
+        (context: any) => (context.counter || 0) < 2,
         'timer',
         'end'
       ));
-      
+
       // 定时器节点
       process.addNode(new TimerNode('timer', 'Timer', 10, 'increment'));
-      
+
       // 递增计数器
       process.addNode(new TaskNode(
         'increment',
         'Increment',
-        (context: any) =>{
+        (context: any) => {
           context.counter = (context.counter || 0) + 1;
           return { counter: context.counter };
         },
         'continue'
       ));
-      
+
       // 继续节点
       process.addNode(new ContinueNode('continue', 'Continue', 'loop'));
       process.addNode(new EndNode('end', 'End'));
@@ -366,10 +366,10 @@ describe('Extended Process Features', () => {
     it('should combine ForEach and delay', async () => {
       // 创建流程定义
       const process = new ProcessDefinition('foreach-delay-process', 'ForEach Delay Process', 'start');
-      
+
       // 添加节点
       process.addNode(new StartNode('start', 'Start', 'foreach'));
-      
+
       // 创建ForEach节点
       process.addNode(new ForEachNode(
         'foreach',
@@ -379,10 +379,10 @@ describe('Extended Process Features', () => {
         'delay',
         'end'
       ));
-      
+
       // 延迟节点
       process.addNode(new DelayNode('delay', 'Delay', 5, 'process'));
-      
+
       // 处理项
       process.addNode(new TaskNode(
         'process',
@@ -396,7 +396,7 @@ describe('Extended Process Features', () => {
         },
         'continue'
       ));
-      
+
       // ForEach继续节点
       process.addNode(new ForEachContinueNode('continue', 'Continue', 'foreach'));
       process.addNode(new EndNode('end', 'End'));
