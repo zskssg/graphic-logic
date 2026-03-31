@@ -4,14 +4,10 @@
  */
 
 // 几何模块
-export * from './geometry/Point';
-export * from './geometry/Line';
-export * from './geometry/Rectangle';
-export * from './geometry/Circle';
+export * from './geometry';
 
 // 逻辑模块
-export * from './logic/LogicGate';
-export * from './logic/TimeScheduler';
+export * from './logic';
 
 // 动画模块
 export * from './animation';

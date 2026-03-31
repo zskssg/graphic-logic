@@ -24,6 +24,7 @@ pnpm add graphic-logic
 详细使用文档请查看 [docs](./docs/) 目录：
 
 - [时间调度器](./docs/time-scheduler.md) - 按时按顺序执行步骤
+- [状态机](./docs/state-machine.md) - 状态管理和状态转换
 - [几何模块](./docs/geometry.md) - 基础几何操作
 - [逻辑模块](./docs/logic.md) - 逻辑门操作
 - [动画模块](./docs/animation.md) - 动画生成和变换
