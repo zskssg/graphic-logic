@@ -9,6 +9,9 @@ export * from './scheduler';
 // 状态机模块
 export * from './state-machine';
 
+// 流程编排模块
+export * from './process';
+
 // 逻辑门模块
 export * from './LogicGate';
 
