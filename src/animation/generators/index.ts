@@ -1,3 +1,5 @@
+
+export * from './LineShapeGenerator';
 export * from './CircleShapeGenerator';
 export * from './RectangleShapeGenerator';
 export * from './StarShapeGenerator';

@@ -18,7 +18,7 @@ export class AnimationController {
     this.ctx = options.canvas.getContext('2d');
     this.center = options.center;
     this.pointSize = options.pointSize || 3;
-    
+
     // 动画状态
     this.frames = [];
     this.currentFrame = 0;
@@ -59,7 +59,7 @@ export class AnimationController {
 
     this.frames = animation.generateFrames(64);
     this.currentFrame = 0;
-    
+
     return this.frames;
   }
 
@@ -75,7 +75,7 @@ export class AnimationController {
     if (this.frames.length === 0) return frameIndex;
 
     const frame = this.frames[frameIndex];
-
+    console.log(frame);
     // 绘制背景网格
     this.drawGrid();
 
@@ -166,7 +166,7 @@ export class AnimationController {
    */
   previousFrame() {
     let frame = this.currentFrame - 1;
-    if (frame< 0) frame = this.frames.length - 1;
+    if (frame < 0) frame = this.frames.length - 1;
     return this.drawFrame(frame);
   }
 

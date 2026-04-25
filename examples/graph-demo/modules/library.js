@@ -4,9 +4,10 @@
  */
 
 // 导入库
-import { 
+import {
   Point,
-  CircleShapeGenerator, 
+  LineShapeGenerator,
+  CircleShapeGenerator,
   RectangleShapeGenerator,
   StarShapeGenerator,
   SemiCircleShapeGenerator,
@@ -76,13 +77,13 @@ export function createTransformConfigs(transforms) {
       id: 'standard',
       name: '标准变换',
       transformations: [new CompositeTransformation([transforms.rotate, transforms.wave, transforms.translate])],
-      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle']
+      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'line']
     },
     {
       id: 'scale',
       name: '缩放变换',
       transformations: [new CompositeTransformation([transforms.scale, transforms.rotate])],
-      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle']
+      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'line']
     },
     {
       id: 'radius',
@@ -94,43 +95,43 @@ export function createTransformConfigs(transforms) {
       id: 'rotate-only',
       name: '仅旋转',
       transformations: [new CompositeTransformation([transforms.rotate])],
-      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle']
+      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'line']
     },
     {
       id: 'linear',
       name: '线性变换',
       transformations: [new CompositeTransformation([transforms.linear])],
-      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle']
+      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'line']
     },
     {
       id: 'wave-spread',
       name: '水波扩散',
       transformations: [new CompositeTransformation([transforms.waveSpread, transforms.rotate])],
-      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle']
+      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'line']
     },
     {
       id: 'stagger-rotate',
       name: '错列旋转',
       transformations: [new CompositeTransformation([transforms.staggerRotate])],
-      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'triangle', 'parallelogram', 'ellipse', 'truncatedCone', 'sector', 'ring', 'polygon']
+      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'triangle', 'parallelogram', 'ellipse', 'truncatedCone', 'sector', 'ring', 'polygon', 'line']
     },
     {
       id: 'stagger-translate',
       name: '错列平移',
       transformations: [new CompositeTransformation([transforms.staggerTranslate])],
-      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'triangle', 'parallelogram', 'ellipse', 'truncatedCone', 'sector', 'ring', 'polygon']
+      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'triangle', 'parallelogram', 'ellipse', 'truncatedCone', 'sector', 'ring', 'polygon', 'line']
     },
     {
       id: 'stagger-scale',
       name: '错列缩放',
       transformations: [new CompositeTransformation([transforms.staggerScale])],
-      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'triangle', 'parallelogram', 'ellipse', 'truncatedCone', 'sector', 'ring', 'polygon']
+      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'triangle', 'parallelogram', 'ellipse', 'truncatedCone', 'sector', 'ring', 'polygon', 'line']
     },
     {
       id: 'stagger-combined',
       name: '错列组合',
       transformations: [new CompositeTransformation([transforms.staggerRotate, transforms.staggerScale])],
-      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'triangle', 'parallelogram', 'ellipse', 'truncatedCone', 'sector', 'ring', 'polygon']
+      compatibleShapes: ['circle', 'rectangle', 'star', 'semicircle', 'triangle', 'parallelogram', 'ellipse', 'truncatedCone', 'sector', 'ring', 'polygon', 'line']
     }
   ];
 }
@@ -142,6 +143,13 @@ export function createTransformConfigs(transforms) {
  */
 export function createShapeConfigs(center) {
   return [
+    {
+      id: 'line',
+      name: '线段',
+      generator: new LineShapeGenerator(
+        new Point(center.x - 100, center.y), // 起点
+        new Point(center.x + 100, center.y), 20)
+    },
     {
       id: 'circle',
       name: '圆形',
@@ -260,6 +268,7 @@ export function createShapeConfigs(center) {
 // 导出所有需要的类和函数
 export {
   Point,
+  LineShapeGenerator,
   CircleShapeGenerator,
   RectangleShapeGenerator,
   StarShapeGenerator,

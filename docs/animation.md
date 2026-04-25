@@ -14,6 +14,7 @@ pnpm add graphic-logic
 
 ### 基础图形
 
+- `LineShapeGenerator` - 线段生成器
 - `CircleShapeGenerator` - 圆形生成器
 - `RectangleShapeGenerator` - 矩形生成器
 - `StarShapeGenerator` - 星形生成器
@@ -61,6 +62,7 @@ pnpm add graphic-logic
 ```typescript
 import { 
   Point,
+  LineShapeGenerator,
   CircleShapeGenerator,
   TriangleShapeGenerator,
   EllipseShapeGenerator
@@ -68,6 +70,13 @@ import {
 
 // 创建中心点
 const center = new Point(100, 100);
+
+// 线段生成器
+const lineGenerator = new LineShapeGenerator(
+  new Point(50, 100),  // 起点
+  new Point(150, 100), // 终点
+  20                    // 点数
+);
 
 // 圆形生成器
 const circleGenerator = new CircleShapeGenerator(center, 50, 32);
