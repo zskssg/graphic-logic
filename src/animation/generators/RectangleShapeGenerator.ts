@@ -15,7 +15,7 @@ export class RectangleShapeGenerator implements ShapeGeneratorInterface {
     const points: Point[] = [];
     const edgePoints = Math.floor(this.pointCount / 4);
     
-    if (edgePoints< 2) {
+    if (edgePoints < 2) {
       return points;
     }
     

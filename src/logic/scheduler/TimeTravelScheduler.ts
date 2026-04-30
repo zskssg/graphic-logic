@@ -90,7 +90,7 @@ export class TimeTravelScheduler extends BaseScheduler {
    * @returns 是否成功跳转
    */
   public gotoState(index: number): boolean {
-    if (index< 0 || index >= this.timeStates.length) return false;
+    if (index < 0 || index >= this.timeStates.length) return false;
 
     this.currentStateIndex = index;
     const state = this.timeStates[this.currentStateIndex];

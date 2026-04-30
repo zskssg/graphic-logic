@@ -16,7 +16,7 @@ export class BaseScheduler implements TimeSchedulerInterface {
   protected pausedTime: number = 0;
   protected pausedElapsed: number = 0;
   protected animationId: any = null;
-  protected completedTasks: Set<string>= new Set();
+  protected completedTasks: Set<string> = new Set();
   protected timeProvider: () => number;
   protected requestAnimationFrameFn: (callback: (time: number) => void) => any;
   protected cancelAnimationFrameFn: (id: any) => void;
@@ -28,12 +28,12 @@ export class BaseScheduler implements TimeSchedulerInterface {
   constructor(options?: SchedulerOptionsInterface) {
     // 使用Date.now()作为默认时间源，确保平台无关
     this.timeProvider = options?.timeProvider || (() => Date.now());
-    
+
     // 使用setTimeout作为默认动画帧函数，确保平台无关
     this.requestAnimationFrameFn = options?.requestAnimationFrame || ((callback) => {
       return setTimeout(() => callback(Date.now()), 16); // 约60fps
     });
-    
+
     this.cancelAnimationFrameFn = options?.cancelAnimationFrame || ((id) => {
       clearTimeout(id);
     });
@@ -49,7 +49,7 @@ export class BaseScheduler implements TimeSchedulerInterface {
    */
   public addTask(time: number, action: () => void, id?: string, once: boolean = true): string {
     const taskId = id || `task_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
+
     const task: TaskInterface = {
       id: taskId,
       time: time,
@@ -59,7 +59,7 @@ export class BaseScheduler implements TimeSchedulerInterface {
 
     this.tasks.push(task);
     this.sortTasks();
-    
+
     return taskId;
   }
 
@@ -72,7 +72,7 @@ export class BaseScheduler implements TimeSchedulerInterface {
     const initialLength = this.tasks.length;
     this.tasks = this.tasks.filter(task => task.id !== id);
     this.completedTasks.delete(id);
-    return this.tasks.length< initialLength;
+    return this.tasks.length < initialLength;
   }
 
   /**
@@ -80,7 +80,7 @@ export class BaseScheduler implements TimeSchedulerInterface {
    */
   public start(): void {
     if (this.isRunning) return;
-    
+
     this.isRunning = true;
     this.isPaused = false;
     this.startTime = this.timeProvider();
@@ -95,7 +95,7 @@ export class BaseScheduler implements TimeSchedulerInterface {
    */
   public pause(): void {
     if (!this.isRunning || this.isPaused) return;
-    
+
     this.isPaused = true;
     this.pausedTime = this.timeProvider();
     if (this.animationId !== null) {
@@ -109,7 +109,7 @@ export class BaseScheduler implements TimeSchedulerInterface {
    */
   public resume(): void {
     if (!this.isRunning || !this.isPaused) return;
-    
+
     this.isPaused = false;
     this.pausedElapsed += this.timeProvider() - this.pausedTime;
     this.pausedTime = 0;
@@ -121,7 +121,7 @@ export class BaseScheduler implements TimeSchedulerInterface {
    */
   public stop(): void {
     if (!this.isRunning) return;
-    
+
     this.isRunning = false;
     this.isPaused = false;
     this.pausedTime = 0;
@@ -164,13 +164,13 @@ export class BaseScheduler implements TimeSchedulerInterface {
    */
   public getCurrentTime(): number {
     if (!this.isRunning) return 0;
-    
+
     let elapsedTime = this.timeProvider() - this.startTime;
-    
+
     if (this.isPaused) {
       elapsedTime -= this.timeProvider() - this.pausedTime;
     }
-    
+
     return elapsedTime - this.pausedElapsed;
   }
 

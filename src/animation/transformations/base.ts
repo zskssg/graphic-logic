@@ -12,19 +12,19 @@ export enum EasingFunction {
 
 /** 带缓动的变换基类 */
 export abstract class EasedTransformation implements TransformationInterface {
-  constructor(private easing: EasingFunction = EasingFunction.LINEAR) {}
+  constructor(private easing: EasingFunction = EasingFunction.LINEAR) { }
 
   protected getProgress(frame: number, totalFrames: number): number {
     const linearProgress = frame / totalFrames;
-    
+
     switch (this.easing) {
       case EasingFunction.EASE_IN:
         return linearProgress * linearProgress;
       case EasingFunction.EASE_OUT:
         return linearProgress * (2 - linearProgress);
       case EasingFunction.EASE_IN_OUT:
-        return linearProgress< 0.5 
-          ? 2 * linearProgress * linearProgress 
+        return linearProgress < 0.5
+          ? 2 * linearProgress * linearProgress
           : -1 + (4 - 2 * linearProgress) * linearProgress;
       case EasingFunction.BOUNCE:
         const n1 = 7.5625;
@@ -32,7 +32,7 @@ export abstract class EasedTransformation implements TransformationInterface {
         let progress = linearProgress;
         if (progress < 1 / d1) {
           return n1 * progress * progress;
-        } else if (progress< 2 / d1) {
+        } else if (progress < 2 / d1) {
           return n1 * (progress -= 1.5 / d1) * progress + 0.75;
         } else if (progress < 2.5 / d1) {
           return n1 * (progress -= 2.25 / d1) * progress + 0.9375;

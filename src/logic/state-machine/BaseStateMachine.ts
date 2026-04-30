@@ -13,10 +13,10 @@ export class BaseStateMachine implements StateMachineInterface {
   public currentState: string = '';
 
   /** 状态集合 */
-  protected states: Map<string, StateInterface>= new Map();
+  protected states: Map<string, StateInterface> = new Map();
 
   /** 转换集合，按源状态分组 */
-  protected transitions: Map<string, TransitionInterface[]>= new Map();
+  protected transitions: Map<string, TransitionInterface[]> = new Map();
 
   /** 状态机上下文 */
   protected context: any;

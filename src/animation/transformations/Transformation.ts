@@ -12,29 +12,29 @@ export enum EasingFunction {
 
 /** 带缓动的变换基类 */
 export abstract class EasedTransformation implements TransformationInterface {
-  constructor(private easing: EasingFunction = EasingFunction.LINEAR) {}
+  constructor(private easing: EasingFunction = EasingFunction.LINEAR) { }
 
   protected getProgress(frame: number, totalFrames: number): number {
     const linearProgress = frame / totalFrames;
-    
+
     switch (this.easing) {
       case EasingFunction.EASE_IN:
         return linearProgress * linearProgress;
       case EasingFunction.EASE_OUT:
         return linearProgress * (2 - linearProgress);
       case EasingFunction.EASE_IN_OUT:
-        return linearProgress< 0.5 
-          ? 2 * linearProgress * linearProgress 
+        return linearProgress < 0.5
+          ? 2 * linearProgress * linearProgress
           : -1 + (4 - 2 * linearProgress) * linearProgress;
       case EasingFunction.BOUNCE:
         const n1 = 7.5625;
         const d1 = 2.75;
         let progress = linearProgress;
-        if (progress< 1 / d1) {
+        if (progress < 1 / d1) {
           return n1 * progress * progress;
         } else if (progress < 2 / d1) {
           return n1 * (progress -= 1.5 / d1) * progress + 0.75;
-        } else if (progress< 2.5 / d1) {
+        } else if (progress < 2.5 / d1) {
           return n1 * (progress -= 2.25 / d1) * progress + 0.9375;
         } else {
           return n1 * (progress -= 2.625 / d1) * progress + 0.984375;
@@ -79,13 +79,13 @@ export class RotateTransformation extends EasedTransformation {
   public apply(point: Point, frame: number, totalFrames: number): Point {
     const progress = this.getProgress(frame, totalFrames);
     const currentAngle = this.angle * progress;
-    
+
     const dx = point.x - this.center.x;
     const dy = point.y - this.center.y;
-    
+
     const cos = Math.cos(currentAngle);
     const sin = Math.sin(currentAngle);
-    
+
     return new Point(
       this.center.x + dx * cos - dy * sin,
       this.center.y + dx * sin + dy * cos
@@ -108,10 +108,10 @@ export class ScaleTransformation extends EasedTransformation {
     const progress = this.getProgress(frame, totalFrames);
     const scaleX = 1 + (this.scaleX - 1) * progress;
     const scaleY = 1 + (this.scaleY - 1) * progress;
-    
+
     const dx = point.x - this.center.x;
     const dy = point.y - this.center.y;
-    
+
     return new Point(
       this.center.x + dx * scaleX,
       this.center.y + dy * scaleY
@@ -151,15 +151,15 @@ export class RadiusTransformation extends EasedTransformation {
   public apply(point: Point, frame: number, totalFrames: number): Point {
     // 计算当前进度（0到1之间）
     const progress = this.getProgress(frame, totalFrames);
-    
+
     // 根据进度计算当前半径
     const currentRadius = this.startRadius + (this.endRadius - this.startRadius) * progress;
-    
+
     // 计算点相对于圆心的角度（保持角度不变）
     const dx = point.x - this.center.x;
     const dy = point.y - this.center.y;
     const angle = Math.atan2(dy, dx);
-    
+
     // 根据新半径和原角度计算新位置
     return new Point(
       this.center.x + currentRadius * Math.cos(angle),
@@ -181,7 +181,7 @@ export class WaveTransformation extends EasedTransformation {
   public apply(point: Point, frame: number, totalFrames: number): Point {
     const progress = this.getProgress(frame, totalFrames);
     const wave = Math.sin(progress * 2 * Math.PI * this.frequency) * this.amplitude;
-    
+
     return new Point(point.x, point.y + wave);
   }
 }
@@ -199,7 +199,7 @@ export class BounceTransformation extends EasedTransformation {
   public apply(point: Point, frame: number, totalFrames: number): Point {
     const progress = this.getProgress(frame, totalFrames);
     const bounce = Math.abs(Math.sin(progress * 2 * Math.PI * this.frequency)) * this.amplitude;
-    
+
     return new Point(point.x + bounce, point.y + bounce);
   }
 }
@@ -216,15 +216,15 @@ export class LinearTransformation extends EasedTransformation {
 
   public apply(point: Point, frame: number, totalFrames: number): Point {
     const progress = this.getProgress(frame, totalFrames);
-    
+
     // 计算点相对于起始点的偏移
     const dx = point.x - this.startPoint.x;
     const dy = point.y - this.startPoint.y;
-    
+
     // 计算目标位置的偏移
     const targetDx = this.endPoint.x - this.startPoint.x;
     const targetDy = this.endPoint.y - this.startPoint.y;
-    
+
     // 线性插值计算新位置
     return new Point(
       this.startPoint.x + dx + targetDx * progress,
@@ -246,26 +246,26 @@ export class WaveSpreadTransformation extends EasedTransformation {
 
   public apply(point: Point, frame: number, totalFrames: number): Point {
     const progress = this.getProgress(frame, totalFrames);
-    
+
     // 计算点到中心的距离
     const dx = point.x - this.center.x;
     const dy = point.y - this.center.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
-    
+
     // 如果点在中心，保持不动
-    if (distance< 0.001) {
+    if (distance < 0.001) {
       return point;
     }
-    
+
     // 计算单位向量
     const unitX = dx / distance;
     const unitY = dy / distance;
-    
+
     // 计算水波效果的偏移量
     // 使用正弦函数创建波动效果，离中心越远波动越大
     const waveIntensity = Math.sin(progress * Math.PI * this.frequency) * this.maxRadius;
     const spreadDistance = waveIntensity * (distance / this.maxRadius);
-    
+
     // 计算新位置
     return new Point(
       point.x + unitX * spreadDistance,
@@ -276,15 +276,15 @@ export class WaveSpreadTransformation extends EasedTransformation {
 
 /** 组合变换 */
 export class CompositeTransformation implements TransformationInterface {
-  constructor(private transformations: TransformationInterface[]) {}
+  constructor(private transformations: TransformationInterface[]) { }
 
   public apply(point: Point, frame: number, totalFrames: number): Point {
     let result = point;
-    
+
     for (const transformation of this.transformations) {
       result = transformation.apply(result, frame, totalFrames);
     }
-    
+
     return result;
   }
 }

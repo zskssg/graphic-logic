@@ -53,7 +53,7 @@ export class Line {
     const y4 = other.end.y;
 
     const denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-    
+
     if (denominator === 0) {
       return null;
     }
@@ -61,7 +61,7 @@ export class Line {
     const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denominator;
     const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / denominator;
 
-    if (t >= 0 && t<= 1 && u >= 0 && u<= 1) {
+    if (t >= 0 && t <= 1 && u >= 0 && u <= 1) {
       return new Point(
         x1 + t * (x2 - x1),
         y1 + t * (y2 - y1)
@@ -78,18 +78,18 @@ export class Line {
    */
   public contains(point: Point): boolean {
     const crossProduct = (point.y - this.start.y) * (this.end.x - this.start.x) - (point.x - this.start.x) * (this.end.y - this.start.y);
-    
-    if (Math.abs(crossProduct) >1e-10) {
+
+    if (Math.abs(crossProduct) > 1e-10) {
       return false;
     }
 
     const dotProduct = (point.x - this.start.x) * (this.end.x - this.start.x) + (point.y - this.start.y) * (this.end.y - this.start.y);
-    if (dotProduct< 0) {
+    if (dotProduct < 0) {
       return false;
     }
 
     const squaredLength = (this.end.x - this.start.x) * (this.end.x - this.start.x) + (this.end.y - this.start.y) * (this.end.y - this.start.y);
-    if (dotProduct >squaredLength) {
+    if (dotProduct > squaredLength) {
       return false;
     }
 

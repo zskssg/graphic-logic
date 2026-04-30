@@ -106,7 +106,7 @@ export class BehaviorTree implements BehaviorTreeInterface {
       id: this.id,
       name: this.name,
       status: this.status,
-      hasRoot: this.root !== null
+      hasRoot: this.root !== undefined
     };
   }
 
@@ -178,7 +178,7 @@ export class BehaviorTree implements BehaviorTreeInterface {
     console.log(`Behavior Tree: ${this.name}`);
     console.log(`ID: ${this.id}`);
     console.log(`Status: ${this.status}`);
-    
+
     printNode(this.root, 0);
   }
 }

@@ -21,7 +21,7 @@ export class WaveSpreadTransformation extends EasedTransformation {
     const distance = Math.sqrt(dx * dx + dy * dy);
     
     // 如果点在中心，保持不动
-    if (distance< 0.001) {
+    if (distance < 0.001) {
       return point;
     }
     
