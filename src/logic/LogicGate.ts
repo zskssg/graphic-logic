@@ -42,7 +42,7 @@ export class LogicGate {
    * @throws 当索引超出范围时抛出错误
    */
   public setInput(index: number, value: boolean): void {
-    if (index< 0 || index >= this._inputs.length) {
+    if (index < 0 || index >= this._inputs.length) {
       throw new Error(`Input index ${index} out of bounds`);
     }
     const input = this._inputs[index];
@@ -59,7 +59,7 @@ export class LogicGate {
    * @throws 当找不到指定名称的输入时抛出错误
    */
   public setInputByName(name: string, value: boolean): void {
-    const index = this._inputs.findIndex(input =>input.name === name);
+    const index = this._inputs.findIndex(input => input.name === name);
     if (index === -1) {
       throw new Error(`Input with name "${name}" not found`);
     }
@@ -73,7 +73,7 @@ export class LogicGate {
    * @throws 当索引超出范围时抛出错误
    */
   public getOutput(index: number = 0): boolean {
-    if (index< 0 || index >= this._outputs.length) {
+    if (index < 0 || index >= this._outputs.length) {
       throw new Error(`Output index ${index} out of bounds`);
     }
     const output = this._outputs[index];

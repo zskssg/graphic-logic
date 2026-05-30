@@ -1,0 +1,7 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.validate.enable": true,
+  "editor.defaultFormatter": "vscode.typescript-language-features",
+  "typescript.format.enable": true
+}

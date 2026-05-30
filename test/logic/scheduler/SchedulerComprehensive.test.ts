@@ -107,7 +107,7 @@ describe('Scheduler Comprehensive Tests', () => {
       scheduler.removeGroup('group1');
 
       expect(scheduler.getTasks()).toHaveLength(1);
-      expect(scheduler.getTasks()[0].id).toBe('task2');
+      expect(scheduler.getTasks()[0]!.id).toBe('task2');
     });
   });
 

@@ -63,7 +63,7 @@ export class Circle {
     
     const discriminant = b * b - 4 * a * c;
     
-    if (discriminant< 0) {
+    if (discriminant < 0) {
       return false;
     }
     
